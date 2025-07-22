@@ -1,10 +1,7 @@
-# Buscar VLC en la lista de productos instalados (x64)
-$vlc = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "VLC media player*" }
-
-if ($vlc) {
-    Write-Host "✅ VLC encontrado. Procediendo a desinstalar..."
-    $vlc.Uninstall()
-    Write-Host "✅ VLC desinstalado correctamente."
+$path = "C:\Program Files\VideoLAN\VLC\uninstall.exe"
+if (Test-Path $path) {
+    Start-Process -FilePath $path -ArgumentList "/S" -Wait
+    Write-Host "✅ VLC desinstalado con uninstall.exe"
 } else {
-    Write-Host "⚠️ VLC no está instalado o ya fue desinstalado."
+    Write-Host "⚠️ VLC no encontrado en la ruta predeterminada"
 }
